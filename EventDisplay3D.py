@@ -634,12 +634,9 @@ class EosVisualizer():
             plt.show()
             
         # Overlay a 3D arrow without blocking the data
-        # Adjusting the 3D subplot size to be slightly larger
-        ax_3d = fig.add_axes([0.25, 0.05, 0.7, 0.7], projection='3d', alpha=0.3, zorder=3)
-        ax_3d.patch.set_alpha(0.0) # Make the 3D axes background transparent
         
         arrow3d(
-            ax_3d, # ax_3d: the 3D axis object where the arrow will be plotted.
+            ax, # the 3D axis object where the arrow will be plotted.
             start=[-502.0, 870.4, 571.5], # start: the starting point coordinates (x, y, z) of the arrow.
             direction=[1, 1, 0.5], # direction: vector indicating the direction of the arrow.
             length=500, # length: length of the arrow from base to tip.
@@ -656,11 +653,6 @@ class EosVisualizer():
             base_offset=(1000, 0, 0), # base_offset: moves the base text relative to the base's position.
             alpha=0.5 # alpha: transparency of the arrow, where 1 is opaque and 0 is fully transparent.
             )
-            
-        ax_3d.set_xlim(-5000, 5000)
-        ax_3d.set_ylim(-5000, 5000)
-        ax_3d.set_zlim(-5000, 5000)
-        #ax_3d.set_axis_off()
             
         # Save and show the plot
         if figpath:
