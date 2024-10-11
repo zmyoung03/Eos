@@ -48,7 +48,7 @@
 #
 # to use: cd into the folder this is stored in, then do: python3 EventDisplay3D.py /(filepath)/(root file).root
 
-
+'''----------------IMPORTS----------------'''
 
 import os
 import re
@@ -61,7 +61,9 @@ import ROOT
 import PMT_POSITIONS
 from mpl_toolkits.mplot3d import Axes3D
 
-def arrow3d(ax, start=(0, 0, 0), direction=(1, 0, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
+'''----------------GEOMETRY----------------'''
+
+def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     
    '''Draw a 3D arrow on a 3D axis using plot_surface.
    :param ax: The 3D axis to draw the arrow on
@@ -81,10 +83,11 @@ def arrow3d(ax, start=(0, 0, 0), direction=(1, 0, 0), length=1000, width=500, he
    # Normalize direction vector to prevent scaling issues
    direction = np.array(direction)
    if np.linalg.norm(direction) == 0:
-      direction = np.array([1, 0, 0]) # Default direction
+      direction = np.array([0, 1, 0]) # Default direction
    else:
       direction = direction / np.linalg.norm(direction) # Normalize direction vector
-      
+   #print("Normalized direction:", direction)
+   
    # Scale the direction vector by the length of the arrow
    direction *= length
    
@@ -137,6 +140,8 @@ def arrow3d(ax, start=(0, 0, 0), direction=(1, 0, 0), length=1000, width=500, he
 # Add text at the base if provided
    if text_base:
       ax.text(base_text_position[0], base_text_position[1], base_text_position[2], text_base, fontsize=16, color=kw.get('color', 'black'))
+      
+'''----------------DEFINITIONS----------------'''
 
 def naturalSort(l):
     convert = lambda text: int(text) if text.isdigit() else text.lower()
@@ -553,7 +558,7 @@ class EosVisualizer():
         
         # Set view angle:
         ax.view_init(vertical_axis = "y")  
-        
+        #vertical_axis = "y"
          #At the moment the side hits and top/bottom hits can't be plotted on the same graph and make a coherent shape. That's something else I'm working on fixing. If you comment out paragraphs under the "plot x hit" comment, they'll work individually
         
         # Plot side hits
@@ -636,16 +641,17 @@ class EosVisualizer():
         # Overlay a 3D arrow without blocking the data
         
         arrow3d(
-            ax, # the 3D axis object where the arrow will be plotted.
+            ax, # ax_3d: the 3D axis object where the arrow will be plotted.
             start=[-502.0, 870.4, 571.5], # start: the starting point coordinates (x, y, z) of the arrow.
-            direction=[1, 1, 0.5], # direction: vector indicating the direction of the arrow.
+            direction=[0, 1, 0], # direction: vector indicating the direction of the arrow.
             length=500, # length: length of the arrow from base to tip.
-            width=100, # width: width of the arrow's shaft.
+            width=50, # width: width of the arrow's shaft.
             head=0.4, # head: proportion of the total length that the head occupies.
             headwidth=2, # headwidth: multiplier that determines the width of the arrow's head relative to the shaft.
-            theta_x=0, # theta_x: rotation angle around the x-axis in degrees.
-            theta_y=38, # theta_y: rotation angle around the y-axis in degrees.
+            theta_x=38, # theta_x: rotation angle around the x-axis in degrees. 90 = in -y directuion. -90 = in y direction.
+            theta_y=0, # theta_y: rotation angle around the y-axis in degrees. -90 = in -x direction. 90 = in positive x direction
             theta_z=0, # theta_z: rotation angle around the z-axis in degrees.
+            #(0, 0, 0) is along +z axis. 
             color='green', # color: color of the arrow.
             text_tip="", # text_tip: text label placed near the tip of the arrow.
             text_base="", # text_base: text label placed near the base of the arrow.
@@ -653,6 +659,8 @@ class EosVisualizer():
             base_offset=(1000, 0, 0), # base_offset: moves the base text relative to the base's position.
             alpha=0.5 # alpha: transparency of the arrow, where 1 is opaque and 0 is fully transparent.
             )
+
+            
             
         # Save and show the plot
         if figpath:
@@ -660,6 +668,8 @@ class EosVisualizer():
            print(f"Plot saved to {figpath}")
         else:
            plt.show()
+           
+'''----------------IF STATEMENTS + RUN PLOT (?)----------------'''       
 
 if __name__ == "__main__":
     import argparse
