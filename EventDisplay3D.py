@@ -141,6 +141,82 @@ def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, 
    if text_base:
       ax.text(base_text_position[0], base_text_position[1], base_text_position[2], text_base, fontsize=16, color=kw.get('color', 'black'))
       
+      
+      
+#cone currently doesn't show up on graph :(      
+def cone3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, radius=500, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
+    '''Draw a 3D cone on a 3D axis using plot_surface.
+    :param ax: The 3D axis to draw the cone on
+    :param start: Starting point of the cone
+    :param direction: Direction vector the cone points to
+    :param length: Length of the cone
+    :param radius: Base radius of the cone
+    :param theta_x: Rotation around the x-axis in degrees
+    :param theta_y: Rotation around the y-axis in degrees
+    :param theta_z: Rotation around the z-axis in degrees
+    :param text_tip: Text label for the cone tip
+    :param text_base: Text label for the cone base
+    :param tip_offset: Offset for the tip text label position
+    :param base_offset: Offset for the base text label position
+    :param kw: Additional keyword arguments for plot_surface'''
+
+    # Normalize direction vector to prevent scaling issues
+    direction = np.array(direction)
+    if np.linalg.norm(direction) == 0:
+        direction = np.array([0, 1, 0])  # Default direction
+    else:
+        direction = direction / np.linalg.norm(direction)  # Normalize direction vector
+
+    # Scale the direction vector by the length of the cone
+    direction *= length
+
+    # Create a circular base for the cone
+    num_points = 30
+    angles = np.linspace(0, 2 * np.pi, num_points)
+    x_base = radius * np.cos(angles)
+    y_base = radius * np.sin(angles)
+    z_base = np.zeros_like(x_base)
+
+    # Define the tip of the cone
+    tip = np.array(start) + direction
+
+    # Create the cone surface by connecting the base to the tip
+    X, Y, Z = [], [], []
+    for i in range(num_points):
+        X.append([x_base[i], 0])  # Base point and tip
+        Y.append([y_base[i], 0])  # Base point and tip
+        Z.append([z_base[i], length])  # Base level and tip height
+
+    X = np.array(X)
+    Y = np.array(Y)
+    Z = np.array(Z)
+
+    # Rotation matrices for x, y, and z axes
+    rot_x = np.array([[1, 0, 0], [0, np.cos(theta_x), -np.sin(theta_x)], [0, np.sin(theta_x), np.cos(theta_x)]])
+    rot_y = np.array([[np.cos(theta_y), 0, np.sin(theta_y)], [0, 1, 0], [-np.sin(theta_y), 0, np.cos(theta_y)]])
+    rot_z = np.array([[np.cos(theta_z), -np.sin(theta_z), 0], [np.sin(theta_z), np.cos(theta_z), 0], [0, 0, 1]])
+
+    # Apply rotations and translate by the start point
+    base_points = np.array([x_base, y_base, z_base]).T
+    tip_point = np.array([0, 0, length])
+    
+    rotated_base = np.dot(rot_x, np.dot(rot_y, np.dot(rot_z, base_points.T))).T + np.array(start)
+    rotated_tip = np.dot(rot_x, np.dot(rot_y, np.dot(rot_z, tip_point))) + np.array(start)
+
+    # Plot the cone surface
+    for i in range(num_points):
+        ax.plot([rotated_base[i][0], rotated_tip[0]], [rotated_base[i][1], rotated_tip[1]], [rotated_base[i][2], rotated_tip[2]], **kw)
+
+    # Add text at the tip if provided
+    if text_tip:
+        tip_text_position = rotated_tip + np.array(tip_offset)
+        ax.text(tip_text_position[0], tip_text_position[1], tip_text_position[2], text_tip, fontsize=16, color=kw.get('color', 'black'))
+
+    # Add text at the base if provided
+    if text_base:
+        base_text_position = np.array(start) + np.array(base_offset)
+        ax.text(base_text_position[0], base_text_position[1], base_text_position[2], text_base, fontsize=16, color=kw.get('color', 'black'))
+
 '''----------------DEFINITIONS----------------'''
 
 def naturalSort(l):
@@ -661,7 +737,24 @@ class EosVisualizer():
             )
 
             
-            
+        
+        cone3d(
+            ax,  # ax: the 3D axis object where the cone will be plotted.
+            start=[-502.0, 870.4, 571.5],  # start: the starting point coordinates (x, y, z) of the cone.
+            direction=[0, 1, 0],  # direction: vector indicating the direction of the cone.
+            length=500,  # length: length of the cone from base to tip.
+            radius=50,  # radius: base radius of the cone.
+            theta_x=38,  # theta_x: rotation angle around the x-axis in degrees.
+            theta_y=0,  # theta_y: rotation angle around the y-axis in degrees.
+            theta_z=0,  # theta_z: rotation angle around the z-axis in degrees.
+            color='green',  # color: color of the cone.
+            text_tip="",  # text_tip: text label placed near the tip of the cone.
+            text_base="",  # text_base: text label placed near the base of the cone.
+            tip_offset=(-7500, 3000, 0),  # tip_offset: moves the tip text relative to the tip's position.
+            base_offset=(1000, 0, 0),  # base_offset: moves the base text relative to the base's position.
+            alpha=0.5  # alpha: transparency of the cone, where 1 is opaque and 0 is fully transparent.
+            )
+    
         # Save and show the plot
         if figpath:
            plt.savefig(figpath, dpi=300)
