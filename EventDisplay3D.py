@@ -63,12 +63,12 @@ from mpl_toolkits.mplot3d import Axes3D
 
 '''----------------GEOMETRY----------------'''
 
-def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
+def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction_ar=(0, 1, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     
    '''Draw a 3D arrow on a 3D axis using plot_surface.
    :param ax: The 3D axis to draw the arrow on
    :param start: Starting point of the arrow
-   :param direction: Direction vector the arrow points to
+   :param direction_ar: Direction vector the arrow points to
    :param length: Length of the arrow
    :param width: Width of the arrow's shaft
    :param head: Fraction of the arrow that forms the head
@@ -81,15 +81,15 @@ def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, 
    :param kw: Additional keyword arguments for plot_surface'''
 
    # Normalize direction vector to prevent scaling issues
-   direction = np.array(direction)
-   if np.linalg.norm(direction) == 0:
-      direction = np.array([0, 1, 0]) # Default direction
+   direction_ar = np.array(direction_ar)
+   if np.linalg.norm(direction_ar) == 0:
+      direction_ar = np.array([0, 1, 0]) # Default direction
    else:
-      direction = direction / np.linalg.norm(direction) # Normalize direction vector
+      direction_ar = direction_ar / np.linalg.norm(direction_ar) # Normalize direction vector
    #print("Normalized direction:", direction)
    
    # Scale the direction vector by the length of the arrow
-   direction *= length
+   direction_ar *= length
    
    # Define the arrow body and head
    a_body = np.array([[0, 0], [width, 0], [width, (1 - head) * length], [0, (1 - head) * length]])
@@ -129,7 +129,7 @@ def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, 
    ax.plot_surface(x_head, y_head, z_head, **kw)
    
    # Calculate the tip position of the arrow
-   tip_position = np.array(start) + direction
+   tip_position = np.array(start) + direction_ar
    tip_text_position = tip_position + np.array(tip_offset)
    base_text_position = np.array(start) + np.array(base_offset)
 
@@ -143,12 +143,12 @@ def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, 
       
       
       
-#cone currently doesn't show up on graph :(      
-def cone3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, radius=500, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
+     
+def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000, radius=500, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     '''Draw a 3D cone on a 3D axis using plot_surface.
     :param ax: The 3D axis to draw the cone on
     :param start: Starting point of the cone
-    :param direction: Direction vector the cone points to
+    :param direction_cn: Direction vector the cone points to
     :param length: Length of the cone
     :param radius: Base radius of the cone
     :param theta_x: Rotation around the x-axis in degrees
@@ -161,14 +161,21 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, r
     :param kw: Additional keyword arguments for plot_surface'''
 
     # Normalize direction vector to prevent scaling issues
-    direction = np.array(direction)
-    if np.linalg.norm(direction) == 0:
-        direction = np.array([0, 1, 0])  # Default direction
+    direction_cn = np.array(direction_cn)
+    if np.linalg.norm(direction_cn) == 0:
+        direction_cn = np.array([0, 1, 0])  # Default direction
     else:
-        direction = direction / np.linalg.norm(direction)  # Normalize direction vector
+        direction_cn = direction_cn / np.linalg.norm(direction_cn)  # Normalize direction vector
 
     # Scale the direction vector by the length of the cone
-    direction *= length
+    direction_cn *= length
+    
+    # Define the tip of the cone
+    tip = np.array(start)
+    
+    #Calculate the base position
+    base_position = tip - direction_cn
+    base_position *= length
 
     # Create a circular base for the cone
     num_points = 30
@@ -177,16 +184,13 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction=(0, 1, 0), length=1000, r
     y_base = radius * np.sin(angles)
     z_base = np.zeros_like(x_base)
 
-    # Define the tip of the cone
-    tip = np.array(start) + direction
-
     # Create the cone surface by connecting the base to the tip
     X, Y, Z = [], [], []
     for i in range(num_points):
         X.append([x_base[i], 0])  # Base point and tip
         Y.append([y_base[i], 0])  # Base point and tip
         Z.append([z_base[i], length])  # Base level and tip height
-
+    
     X = np.array(X)
     Y = np.array(Y)
     Z = np.array(Z)
@@ -651,7 +655,7 @@ class EosVisualizer():
                # Plot the side PMTs
                ax.scatter(x_pos, hits["side"][:,2], y_pos, 
                       s=pmtsize, c=charges["side"], norm=norm, cmap=cmap, label='Side Hits')
-               #EosViz.add_marker(x=502.0, y=870.4, z=571.5, marker="*", color="red", size=200)
+               #EosViz.add_marker(x=-502.0, y=870.4, z=571.5, marker="*", color="red", size=200)
         
         '''# Plot top hits
         if len(hits["top"]) > 0:
@@ -719,7 +723,7 @@ class EosVisualizer():
         arrow3d(
             ax, # ax_3d: the 3D axis object where the arrow will be plotted.
             start=[-502.0, 870.4, 571.5], # start: the starting point coordinates (x, y, z) of the arrow.
-            direction=[0, 1, 0], # direction: vector indicating the direction of the arrow.
+            direction_ar=[0, 1, 0], # direction: vector indicating the direction of the arrow.
             length=500, # length: length of the arrow from base to tip.
             width=50, # width: width of the arrow's shaft.
             head=0.4, # head: proportion of the total length that the head occupies.
@@ -736,15 +740,20 @@ class EosVisualizer():
             alpha=0.5 # alpha: transparency of the arrow, where 1 is opaque and 0 is fully transparent.
             )
 
-            
+        # Save and show the plot
+        if figpath:
+           plt.savefig(figpath, dpi=300)
+           print(f"Plot saved to {figpath}")
+        else:
+           plt.show()
         
         cone3d(
             ax,  # ax: the 3D axis object where the cone will be plotted.
             start=[-502.0, 870.4, 571.5],  # start: the starting point coordinates (x, y, z) of the cone.
-            direction=[0, 1, 0],  # direction: vector indicating the direction of the cone.
+            direction_cn=[0, 1, 0],  # direction: vector indicating the direction of the cone.
             length=500,  # length: length of the cone from base to tip.
             radius=50,  # radius: base radius of the cone.
-            theta_x=38,  # theta_x: rotation angle around the x-axis in degrees.
+            theta_x=-38,  # theta_x: rotation angle around the x-axis in degrees.
             theta_y=0,  # theta_y: rotation angle around the y-axis in degrees.
             theta_z=0,  # theta_z: rotation angle around the z-axis in degrees.
             color='green',  # color: color of the cone.
