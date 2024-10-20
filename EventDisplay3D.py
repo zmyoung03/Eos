@@ -222,69 +222,6 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000
         ax.text(base_text_position[0], base_text_position[1], base_text_position[2], text_base, fontsize=16, color=kw.get('color', 'black'))
 #consistently unable to make the tip be in the place it's supposed to be
 
-
-#Cone Attempt 2        
-'''def draw_cone(ax, tip, height, spread_angle, rotation_angles, num_points):
-    #convert spread angle from deg to rad
-    angle_rad = np.radians(spread_angle)
-    
-    #calculate radius based on height and angle
-    radius = height * np.tan(angle_rad)
-    
-    #generate base points in a circle
-    angles = np.linspace(0, 2 *np.pi, num_points, endpoint=False)
-    x_base = radius * np.cos(angles)
-    y_base = radius * np.sin(angles)
-    z_base = np.zeros_like(x_base)
-    
-    #move the  base down along the z-axis by the height of the cone
-    base_center = np.array(tip) - np.array([0, 0, height])
-    base_points = np.column_stack((x_base + base_center[0], y_base + base_center[1], z_base + base_center[2]))
-    
-    print("Base Points: \n", base_points)
-    
-     # Create rotation matrices for the specified rotation angles
-    theta_x, theta_y, theta_z = rotation_angles
-    rot_x = np.array([[1, 0, 0],
-                      [0, np.cos(theta_x), -np.sin(theta_x)],
-                      [0, np.sin(theta_x),  np.cos(theta_x)]])
-    
-    rot_y = np.array([[np.cos(theta_y), 0, np.sin(theta_y)],
-                      [0, 1, 0],
-                      [-np.sin(theta_y), 0, np.cos(theta_y)]])
-    
-    rot_z = np.array([[np.cos(theta_z), -np.sin(theta_z), 0],
-                      [np.sin(theta_z),  np.cos(theta_z), 0],
-                      [0, 0, 1]])
-    
-     # Combine the rotations (Z * Y * X)
-    rotation_matrix = rot_z @ rot_y @ rot_x
-
-    # Rotate the base points
-    rotated_base_points = np.dot(base_points - tip, rotation_matrix.T) + tip
-    
-    # Check for duplicates or collinearity
-    unique_points = np.unique(rotated_base_points, axis=0)
-    if len(unique_points) < 3:
-        print("Not enough unique points for triangulation.")
-        return  # Exit if not enough unique points
-
-    
-    # Draw the cone
-    for i in range(num_points):
-        ax.plot([tip[0], rotated_base_points[i][0]], 
-                [tip[1], rotated_base_points[i][1]], 
-                [tip[2], rotated_base_points[i][2]], color='b')
-
-    #Draw the base
-    if len(rotated_base_points) >= 3:
-        ax.plot_trisurf(rotated_base_points[:, 0], 
-                         rotated_base_points[:, 1], 
-                         rotated_base_points[:, 2], 
-                         color='cyan', alpha=0.5)'''
-#consistently getting Delaunay triangulation error    
-        
-
 '''----------------DEFINITIONS----------------'''
 
 def naturalSort(l):
@@ -811,11 +748,12 @@ class EosVisualizer():
         else:
            plt.show()
         
+        #fiber location is -502.0, 870.4, 571.5
         cone3d(
             ax,  # ax: the 3D axis object where the cone will be plotted.
             start=[-502.0, 870.4, 571.5],  # start: the starting point coordinates (x, y, z) of the cone.
             direction_cn=[0, 0, 1],  # direction: vector indicating the direction of the cone.
-            length=5000,  # length: length of the cone from base to tip.
+            length=-3000,  # length: length of the cone from base to tip.
             radius=500,  # radius: base radius of the cone.
             theta_x=38,  # theta_x: rotation angle around the x-axis in degrees.
             theta_y=0,  # theta_y: rotation angle around the y-axis in degrees.
@@ -827,14 +765,6 @@ class EosVisualizer():
             base_offset=(1000, 0, 0),  # base_offset: moves the base text relative to the base's position.
             alpha=0.5  # alpha: transparency of the cone, where 1 is opaque and 0 is fully transparent.
             )
-            
-        '''#cone:
-        tip = (0, 0, 0)
-        height = 500
-        spread_angle = 38
-        rotation_angles = (np.radians(0), np.radians(90), np.radians(0))    
-        num_points = 30
-        draw_cone(ax, tip, height, spread_angle, rotation_angles, num_points)''' 
             
     
         # Save and show the plot
