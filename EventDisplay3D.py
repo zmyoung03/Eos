@@ -64,7 +64,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 '''----------------GEOMETRY----------------'''
 
-def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction_ar=(0, 1, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
+def arrow3d(ax, start=(0, 0, 0), direction_ar=(0, 1, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     
    '''Draw a 3D arrow on a 3D axis using plot_surface.
    :param ax: The 3D axis to draw the arrow on
@@ -133,6 +133,7 @@ def arrow3d(ax, start=(-502.0, 870.4, 571.5), direction_ar=(0, 1, 0), length=100
    tip_position = np.array(start) + direction_ar
    tip_text_position = tip_position + np.array(tip_offset)
    base_text_position = np.array(start) + np.array(base_offset)
+   print (tip_position)
 
    # Add text at the tip if provided
    if text_tip:
@@ -196,20 +197,35 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000
     Z = np.array(Z)
 
     # Rotation matrices for x, y, and z axes
-    rot_x = np.array([[1, 0, 0], [0, np.cos(theta_x), -np.sin(theta_x)], [0, np.sin(theta_x), np.cos(theta_x)]])
-    rot_y = np.array([[np.cos(theta_y), 0, np.sin(theta_y)], [0, 1, 0], [-np.sin(theta_y), 0, np.cos(theta_y)]])
-    rot_z = np.array([[np.cos(theta_z), -np.sin(theta_z), 0], [np.sin(theta_z), np.cos(theta_z), 0], [0, 0, 1]])
+    rot_x = np.array([[1, 0, 0], 
+                      [0, np.cos(np.radians(theta_x)), -np.sin(np.radians(theta_x))], 
+                      [0, np.sin(np.radians(theta_x)), np.cos(np.radians(theta_x))]])
+    
+    rot_y = np.array([[np.cos(np.radians(theta_y)), 0, np.sin(np.radians(theta_y))], 
+                      [0, 1, 0], 
+                      [-np.sin(np.radians(theta_y)), 0, np.cos(np.radians(theta_y))]])
+    
+    rot_z = np.array([[np.cos(np.radians(theta_z)), -np.sin(np.radians(theta_z)), 0], 
+                      [np.sin(np.radians(theta_z)), np.cos(np.radians(theta_z)), 0], 
+                      [0, 0, 1]])
 
-    # Apply rotations and translate by the start point
+    # Combine rotations
+    rotation_matrix = rot_z @ rot_y @ rot_x
+
+    # Apply rotations
     base_points = np.array([x_base, y_base, z_base]).T
     tip_point = np.array([0, 0, length])
-    
-    rotated_base = np.dot(rot_x, np.dot(rot_y, np.dot(rot_z, base_points.T))).T + base_points
-    rotated_tip = np.dot(rot_x, np.dot(rot_y, np.dot(rot_z, tip_point))) + np.array(start)
+
+    # Rotate and translate
+    rotated_base = (base_points @ rotation_matrix.T) + base_position
+    rotated_tip = (tip_point @ rotation_matrix.T) + tip
 
     # Plot the cone surface
     for i in range(num_points):
-        ax.plot([rotated_base[i][0], rotated_tip[0]], [rotated_base[i][1], rotated_tip[1]], [rotated_base[i][2], rotated_tip[2]], **kw)
+        ax.plot([rotated_base[i][0], rotated_tip[0]], 
+                [rotated_base[i][1], rotated_tip[1]], 
+                [rotated_base[i][2], rotated_tip[2]], **kw)
+
 
     # Add text at the tip if provided
     if text_tip:
@@ -749,11 +765,12 @@ class EosVisualizer():
            plt.show()
         
         #fiber location is -502.0, 870.4, 571.5
+        #arrow tip position is -502.0,  ???,  571.5
         cone3d(
             ax,  # ax: the 3D axis object where the cone will be plotted.
-            start=[-502.0, 870.4, 571.5],  # start: the starting point coordinates (x, y, z) of the cone.
+            start=[0, -775, 2550],  # start: the starting point coordinates (x, y, z) of the cone. 
             direction_cn=[0, 0, 1],  # direction: vector indicating the direction of the cone.
-            length=-3000,  # length: length of the cone from base to tip.
+            length=-2250,  # length: length of the cone from base to tip.
             radius=500,  # radius: base radius of the cone.
             theta_x=38,  # theta_x: rotation angle around the x-axis in degrees.
             theta_y=0,  # theta_y: rotation angle around the y-axis in degrees.
