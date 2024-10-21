@@ -146,12 +146,13 @@ def arrow3d(ax, start=(0, 0, 0), direction_ar=(0, 1, 0), length=1000, width=500,
       
       
 # Cone Attempt 1     
-def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000, radius=500, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
+def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000, spread_angle=38, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     '''Draw a 3D cone on a 3D axis using plot_surface.
     :param ax: The 3D axis to draw the cone on
     :param start: Starting point of the cone
     :param direction_cn: Direction vector the cone points to
     :param length: Length of the cone
+    :param spread_angle: angle at which the cone spreads away from the 'vertical' axis its created on
     :param radius: Base radius of the cone
     :param theta_x: Rotation around the x-axis in degrees
     :param theta_y: Rotation around the y-axis in degrees
@@ -177,6 +178,9 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000
     
     #Calculate the base position
     base_position = tip - direction_cn
+    
+    # Calculate the radius of the base based on the spread angle
+    radius = length * np.tan(np.radians(spread_angle))
 
     # Create a circular base for the cone
     num_points = 30
@@ -236,7 +240,6 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000
     if text_base:
         base_text_position = np.array(start) + np.array(base_offset)
         ax.text(base_text_position[0], base_text_position[1], base_text_position[2], text_base, fontsize=16, color=kw.get('color', 'black'))
-#consistently unable to make the tip be in the place it's supposed to be
 
 '''----------------DEFINITIONS----------------'''
 
@@ -768,10 +771,10 @@ class EosVisualizer():
         #arrow tip position is -502.0,  ???,  571.5
         cone3d(
             ax,  # ax: the 3D axis object where the cone will be plotted.
-            start=[0, -775, 2550],  # start: the starting point coordinates (x, y, z) of the cone. 
+            start=[0, -450, 2000],  # start: the starting point coordinates (x, y, z) of the cone. currently cone needs to be manually moved to match up with the tip of the arrow.hopefully I'll be able to fix that soon 
             direction_cn=[0, 0, 1],  # direction: vector indicating the direction of the cone.
-            length=-2250,  # length: length of the cone from base to tip.
-            radius=500,  # radius: base radius of the cone.
+            length=-1750,  # length: length of the cone from base to tip.
+            spread_angle=38, #spread angle: angle at which cone spreads away from 'vertical'
             theta_x=38,  # theta_x: rotation angle around the x-axis in degrees.
             theta_y=0,  # theta_y: rotation angle around the y-axis in degrees.
             theta_z=0,  # theta_z: rotation angle around the z-axis in degrees.
