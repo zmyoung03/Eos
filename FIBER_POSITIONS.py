@@ -1,5 +1,6 @@
 # Fiber information for Columns 1-6
 #contains locations (x, y, z, phi) and open angles for fibers 1, 3, 5 from each column
+#contains locations (x, y, z) and directions (x, y, z) or placeholders for location/direction (mostly placeholders at this point) for arrows and cones
 #x, y, z are in mm, phi and open angle are in degrees
 #does not contain mode or wavelength. is this necessary? unknown
 
@@ -53,11 +54,102 @@ phi = [
 
 #Fiber open angles
 open_angle = [
-90, #placeholder/fake fiber for code testing
+60, #placeholder/fake fiber for code testing
 38, 120, 38, #column 1
 38, 120, 38, #column 2
 38, 120, 38, #column 3
 38, 120, 38, #column 4
 38, 120, 38, #column 5
 38, 120, 38 #column 6
+]
+
+#cone positions
+cone_positions = [
+[], #placeholder/fake fiber for code testing
+[], #1_1
+[], #1_3
+[], #1_5, have data for this one
+[0, -450, 2000], #2_1
+[], #2_3
+[], #2_5
+[], #3_1
+[], #3_3
+[], #3_5, have data for this one
+[], #4_1
+[], #4_3
+[], #4_5  
+[], #5_1
+[], #5_3
+[], #5_5
+[], #6_1
+[], #6_3
+[] #have data for this one? labelled as 6_6. needs to be checked
+]
+
+#cone directions
+cone_directions = [
+[], #placeholder/fake fiber for code testing
+[], #1_1
+[], #1_3
+[], #1_5, have data for this one
+[0, 0, 1], #2_1
+[], #2_3
+[], #2_5
+[], #3_1
+[], #3_3
+[], #3_5, have data for this one
+[], #4_1
+[], #4_3
+[], #4_5  
+[], #5_1
+[], #5_3
+[], #5_5
+[], #6_1
+[], #6_3
+[] #have data for this one? labelled as 6_6. needs to be checked
+]
+
+#arrow positions
+arrow_positions = [
+[], #placeholder/fake fiber for code testing
+[], #1_1
+[], #1_3
+[], #1_5, have data for this one
+[-502.0, 870.4, 571.5], #2_1
+[], #2_3
+[], #2_5
+[], #3_1
+[], #3_3
+[], #3_5, have data for this one
+[], #4_1
+[], #4_3
+[], #4_5  
+[], #5_1
+[], #5_3
+[], #5_5
+[], #6_1
+[], #6_3
+[] #have data for this one? labelled as 6_6. needs to be checked
+]
+
+#arrow directions
+[], #placeholder/fake fiber for code testing
+[], #1_1
+[], #1_3
+[], #1_5, have data for this one
+[0, 1, 0], #2_1
+[], #2_3
+[], #2_5
+[], #3_1
+[], #3_3
+[], #3_5, have data for this one
+[], #4_1
+[], #4_3
+[], #4_5  
+[], #5_1
+[], #5_3
+[], #5_5
+[], #6_1
+[], #6_3
+[] #have data for this one? labelled as 6_6. needs to be checked
 ]
