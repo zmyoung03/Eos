@@ -742,7 +742,7 @@ class EosVisualizer():
         
         arrow3d(
             ax, # ax_3d: the 3D axis object where the arrow will be plotted.
-            start=[-502.0, 870.4, 571.5], # start: the starting point coordinates (x, y, z) of the arrow.
+            start=[502.0, 870.4, 571.5], # start: the starting point coordinates (x, y, z) of the arrow.
             direction_ar=[0, 1, 0], # direction: vector indicating the direction of the arrow.
             length=500, # length: length of the arrow from base to tip.
             width=50, # width: width of the arrow's shaft.
