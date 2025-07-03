@@ -129,7 +129,7 @@ arrow_positions = [
 [-502.5, -870.4, -342.9], #5_5
 [502.5, -870.4, 571.5], #6_1
 [502.5, -870.4, 114.3], #6_3
-[502.5, -870.4, -342.9] #have data for this one? labelled as 6_6. needs to be checked
+[502.5, -870.4, -342.9] #6_5. have data for this one? labelled as 6_6. needs to be checked
 ]
 
 #arrow directions
