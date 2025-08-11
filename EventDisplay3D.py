@@ -48,6 +48,8 @@
 #
 # to use: cd into the folder this is stored in, then do: python3 EventDisplay3D.py /(filepath)/(root file).root
 
+
+
 '''----------------IMPORTS----------------'''
 
 import os
@@ -62,8 +64,11 @@ import PMT_POSITIONS
 import mpl_toolkits
 from mpl_toolkits.mplot3d import Axes3D
 
+
+
 '''----------------GEOMETRY----------------'''
 
+#arrow
 def arrow3d(ax, start=(0, 0, 0), direction_ar=(0, 1, 0), length=1000, width=500, head=0.2, headwidth=1.5, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     
    '''Draw a 3D arrow on a 3D axis using plot_surface.
@@ -145,7 +150,7 @@ def arrow3d(ax, start=(0, 0, 0), direction_ar=(0, 1, 0), length=1000, width=500,
       
       
       
-# Cone Attempt 1     
+# Cone    
 def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000, spread_angle=38, theta_x=0, theta_y=0, theta_z=0, text_tip=None, text_base=None, tip_offset=(0, 0, 0), base_offset=(0, 0, 0), **kw):
     '''Draw a 3D cone on a 3D axis using plot_surface.
     :param ax: The 3D axis to draw the cone on
@@ -230,7 +235,6 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000
                 [rotated_base[i][1], rotated_tip[1]], 
                 [rotated_base[i][2], rotated_tip[2]], **kw)
 
-
     # Add text at the tip if provided
     if text_tip:
         tip_text_position = rotated_tip + np.array(tip_offset)
@@ -240,6 +244,8 @@ def cone3d(ax, start=(-502.0, 870.4, 571.5), direction_cn=(0, 1, 0), length=1000
     if text_base:
         base_text_position = np.array(start) + np.array(base_offset)
         ax.text(base_text_position[0], base_text_position[1], base_text_position[2], text_base, fontsize=16, color=kw.get('color', 'black'))
+
+
 
 '''----------------DEFINITIONS----------------'''
 
@@ -650,7 +656,7 @@ class EosVisualizer():
             cmap = plt.get_cmap('viridis')
 
         # Display Canvas and axes
-        fig = plt.figure(figsize=(18, 14), facecolor='black')
+        fig = plt.figure(figsize=(18, 14), facecolor='white')
         gs = fig.add_gridspec(3, 2) # GridSpec for original layout
         
         # Create 3D axes
@@ -658,8 +664,8 @@ class EosVisualizer():
         
         # Set view angle:
         ax.view_init(vertical_axis = "y")  
-        #vertical_axis = "y"
-         #At the moment the side hits and top/bottom hits can't be plotted on the same graph and make a coherent shape. That's something else I'm working on fixing. If you comment out paragraphs under the "plot x hit" comment, they'll work individually
+        #vertical_axis = "y" gives you standard graph position that lets you see all axes. 90, 0, 0 shows you the x-y plane, 0, 90, 0 is the x-z plane, 0, 0, 90 is the y-z plane
+         #At the moment the side hits and top/bottom hits can't be plotted on the same graph and make a coherent shape. If you comment out paragraphs under the "plot x hit" comment, they'll work individually
         
         # Plot side hits
         if len(hits["side"]) > 0:
@@ -705,7 +711,7 @@ class EosVisualizer():
             cbar_ax = fig.add_axes([0.88, 0.1, 0.03, 0.8])
             cb = fig.colorbar(ax.collections[0], cax=cbar_ax)
             cbar_ax.set_ylim(bottom=0)
-            fg_color = "white"
+            fg_color = "black"
             cb.ax.yaxis.set_tick_params(color=fg_color, labelsize=24)
             cb.outline.set_edgecolor(fg_color)
             plt.setp(plt.getp(cb.ax.axes, 'yticklabels'), color=fg_color)
@@ -742,16 +748,15 @@ class EosVisualizer():
         
         arrow3d(
             ax, # ax_3d: the 3D axis object where the arrow will be plotted.
-            start=[502.0, 870.4, 571.5], # start: the starting point coordinates (x, y, z) of the arrow.
+            start=[502.5, -870.4, -571.5], # start: the starting point coordinates (x, y, z) of the arrow.
             direction_ar=[0, 1, 0], # direction: vector indicating the direction of the arrow.
             length=500, # length: length of the arrow from base to tip.
             width=50, # width: width of the arrow's shaft.
             head=0.4, # head: proportion of the total length that the head occupies.
             headwidth=2, # headwidth: multiplier that determines the width of the arrow's head relative to the shaft.
-            theta_x=38, # theta_x: rotation angle around the x-axis in degrees. 90 = in -y directuion. -90 = in y direction.
-            theta_y=0, # theta_y: rotation angle around the y-axis in degrees. -90 = in -x direction. 90 = in positive x direction
+            theta_x=-44.4, # theta_x: rotation angle around the x-axis in degrees. 
+            theta_y=-44.8, # theta_y: rotation angle around the y-axis in degrees. 
             theta_z=0, # theta_z: rotation angle around the z-axis in degrees.
-            #(0, 0, 0) is along +z axis. 
             color='green', # color: color of the arrow.
             text_tip="", # text_tip: text label placed near the tip of the arrow.
             text_base="", # text_base: text label placed near the base of the arrow.
@@ -767,16 +772,15 @@ class EosVisualizer():
         else:
            plt.show()
         
-        #fiber location is -502.0, 870.4, 571.5
-        #arrow tip position is -502.0,  ???,  571.5
-        cone3d(
+        
+        '''cone3d(
             ax,  # ax: the 3D axis object where the cone will be plotted.
-            start=[0, -450, 2000],  # start: the starting point coordinates (x, y, z) of the cone. currently cone needs to be manually moved to match up with the tip of the arrow.hopefully I'll be able to fix that soon 
+            start=[-1800, 0, -2400],  # start: the starting point coordinates (x, y, z) of the base of the cone. currently the tip of thecone needs to be manually moved to match up with the tip of the arrow.
             direction_cn=[0, 0, 1],  # direction: vector indicating the direction of the cone.
-            length=-1750,  # length: length of the cone from base to tip.
-            spread_angle=38, #spread angle: angle at which cone spreads away from 'vertical'
-            theta_x=38,  # theta_x: rotation angle around the x-axis in degrees.
-            theta_y=0,  # theta_y: rotation angle around the y-axis in degrees.
+            length=-3000,  # length: length of the cone from base to tip.
+            spread_angle=38, #spread angle: angle at which cone spreads away from 'vertical', determined by the fiber's open angle-- this will be 38 degrees for most fibers
+            theta_x=0,  # theta_x: rotation angle around the x-axis in degrees.
+            theta_y=-130,  # theta_y: rotation angle around the y-axis in degrees.
             theta_z=0,  # theta_z: rotation angle around the z-axis in degrees.
             color='blue',  # color: color of the cone.
             text_tip="",  # text_tip: text label placed near the tip of the cone.
@@ -784,7 +788,7 @@ class EosVisualizer():
             tip_offset=(-7500, 3000, 0),  # tip_offset: moves the tip text relative to the tip's position.
             base_offset=(1000, 0, 0),  # base_offset: moves the base text relative to the base's position.
             alpha=0.5  # alpha: transparency of the cone, where 1 is opaque and 0 is fully transparent.
-            )
+            )'''
             
     
         # Save and show the plot
