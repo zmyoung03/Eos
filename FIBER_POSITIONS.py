@@ -1,155 +1,346 @@
 # Fiber information for Columns 1-6
-#contains locations (x, y, z, phi) and open angles for fibers 1, 3, 5 from each column
-#contains locations (x, y, z) and directions (x, y, z) or placeholders for location/direction (mostly placeholders at this point) for arrows and cones
+#contains locations (x, y, z, phi) and open angles for fibers 1-6 from each column
+#contains locations (x, y, z), directions, angles, for all arrows and cones and cone lengths for all cones (with placeholders, not complete)
 #x, y, z are in mm, phi and open angle are in degrees
-#does not contain mode or wavelength. is this necessary? unknown
+#does not contain mode or wavelength. is this necessary?
 
 '''# Mapping from col board name to the board number
 
-columns = {""}''' #is this necessary? testing needed
+columns = {""}''' #is this necessary?
 
 # Fiber x positions
 x = [
 0, #placeholder/fake fiber for code testing
-1005, 1005, 1005, #column 1
-502.5, 502.5, 502.5, #column 2
--502.5, -502.5, -502.5, #column 3
--1005, -1005, -1005, #column 4
--502.5, -502.5, -502.5, #column 5
-502.5, 502.5, 502.5 #column 6
+1005, 1005, 1005, 1005, 1005, 1005, #column 1
+502.5, 502.5, 502.5, 502.5, 502.5, 502.5, #column 2
+-502.5, -502.5, -502.5, -502.5, -502.5, -502.5, #column 3
+-1005, -1005, -1005, -1005, -1005, -1005, #column 4
+-502.5, -502.5, -502.5, -502.5, -502.5, -502.5, #column 5
+502.5, 502.5, 502.5, 502.5, 502.5, 502.5 #column 6
 ]
 
 # Fiber y positions
 y = [
 0, #placeholder/fake fiber for code testing
-0, 0, 0, #column 1
-870.4, 870.4, 870.4, #column 2
-870.4, 870.4, 870.4, #column 3
-0, 0, 0, #column 4
--870.4, -870.4, -870.4, #column 5
--870.4, -870.4, -870.4 #column 6
+0, 0, 0, 0, 0, 0, #column 1
+870.4, 870.4, 870.4, 870.4, 870.4, 870.4, #column 2
+870.4, 870.4, 870.4, 870.4, 870.4, 870.4, #column 3
+0, 0, 0, 0, 0, 0, #column 4
+-870.4, -870.4, -870.4, -870.4, -870.4, -870.4, #column 5
+-870.4, -870.4, -870.4, -870.4, -870.4, -870.4 #column 6
 ]
 
 # Fiber z positions
 z = [
 0, #placeholder/fake fiber for code testing
-571.5, 114.3, -342.9, #column 1
-571.5, 114.3, -342.9, #column 2
-571.5, 114.3, -342.9, #column 3
-571.5, 114.3, -342.9, #column 4
-571.5, 114.3, -342.9, #column 5
-571.5, 114.3, -342.9 #column 6
+571.5, 342.9, 114.3, -114.3, -342.9, -571.5, #column 1
+571.5, 342.9, 114.3, -114.3, -342.9, -571.5, #column 2
+571.5, 342.9, 114.3, -114.3, -342.9, -571.5, #column 3
+571.5, 342.9, 114.3, -114.3, -342.9, -571.5, #column 4
+571.5, 342.9, 114.3, -114.3, -342.9, -571.5, #column 5
+571.5, 342.9, 114.3, -114.3, -342.9, -571.5 #column 6
 ]
 
 #Fiber phi positions
 phi = [
 0, #placeholder/fake fiber for code testing
-0, 0, 0, #column 1
-60, 60, 60, #column 2
-120, 120, 120, #column 3
-180, 180, 180, #column 4
-240, 240, 240, #column 5
-300, 300, 300 #column 6
+0, 0, 0, 0, 0, 0, #column 1
+60, 60, 60, 60, 60, 60, #column 2
+120, 120, 120, 120, 120, 120, #column 3
+180, 180, 180, 180, 180, 180, #column 4
+240, 240, 240, 240, 240, 240, #column 5
+300, 300, 300, 300, 300, 300 #column 6
 ]
 
 #Fiber open angles
 open_angle = [
 60, #placeholder/fake fiber for code testing
-38, 120, 38, #column 1
-38, 120, 38, #column 2
-38, 120, 38, #column 3
-38, 120, 38, #column 4
-38, 120, 38, #column 5
-38, 120, 38 #column 6
+38, 38, 120, 120, 38, 38, #column 1
+38, 38, 120, 120, 38, 38, #column 2
+38, 38, 120, 120, 38, 38, #column 3
+38, 38, 120, 120, 38, 38, #column 4
+38, 38, 120, 120, 38, 38, #column 5
+38, 38, 120, 120, 38, 38 #column 6
 ]
 
 #cone positions
 cone_positions = [
-[], #placeholder/fake fiber for code testing
+[0,0,0], #placeholder/fake fiber for code testing
 [], #1_1
+[], #1_2
 [], #1_3
-[], #1_5, have data for this one
-[0, -450, 2000], #2_1
+[], #1_4
+[-1800, 0, -2400], #1_5, have data for this one
+[], #1_6
+[0, -450, 2000], #2_1, have data for this one
+[], #2_2
 [], #2_3
+[], #2_4
 [], #2_5
+[], #2_6
 [], #3_1
+[], #3_2
 [], #3_3
+[], #3_4
 [], #3_5, have data for this one
+[], #3_6
 [], #4_1
+[], #4_2
 [], #4_3
+[], #4_4
 [], #4_5  
+[], #4_6
 [], #5_1
+[], #5_2
 [], #5_3
+[], #5_4
 [], #5_5
+[], #5_6
 [], #6_1
+[], #6_2
 [], #6_3
-[] #have data for this one? labelled as 6_6. needs to be checked
+[], #6_4
+[], #6_5 
+[] #6_6, have data for this one
 ]
 
 #cone directions
 cone_directions = [
-[], #placeholder/fake fiber for code testing
+[0,0,0], #placeholder/fake fiber for code testing
 [], #1_1
+[], #1_2
 [], #1_3
-[], #1_5, have data for this one
-[0, 0, 1], #2_1
+[], #1_4
+[0,0,1], #1_5, have data for this one
+[0, 0, 1], #2_1, have data for this one
+[], #2_2
 [], #2_3
+[], #2_4
 [], #2_5
+[], #2_6
 [], #3_1
+[], #3_2
 [], #3_3
-[], #3_5, have data for this one
+[], #3_4
+[0,0,1], #3_5, have data for this one
+[], #3_6
 [], #4_1
+[], #4_2
 [], #4_3
+[], #4_4
 [], #4_5  
+[], #4_6
 [], #5_1
+[], #5_2
 [], #5_3
+[], #5_4
 [], #5_5
+[], #5_6
 [], #6_1
+[], #6_2
 [], #6_3
-[] #have data for this one? labelled as 6_6. needs to be checked
+[], #6_4
+[0,0,1], #6_5 
+[0,0,1] #6_6, have data for this one
+]
+
+#cone angles
+cone_angles = [
+[0,0,0], #placeholder/fake fiber for code testing
+[], #1_1
+[], #1_2
+[], #1_3
+[], #1_4
+[0, -130, 0], #1_5, have data for this one
+[38, 0, 0], #2_1, have data for this one
+[], #2_2
+[], #2_3
+[], #2_4
+[], #2_5
+[], #2_6
+[], #3_1
+[], #3_2
+[], #3_3
+[], #3_4
+[], #3_5, have data for this one
+[], #3_6
+[], #4_1
+[], #4_2
+[], #4_3
+[], #4_4
+[], #4_5  
+[], #4_6
+[], #5_1
+[], #5_2
+[], #5_3
+[], #5_4
+[], #5_5
+[], #5_6
+[], #6_1
+[], #6_2
+[], #6_3
+[], #6_4
+[], #6_5 
+[] #6_6, have data for this one
+]
+
+#cone length
+cone_length = [
+[2000], #placeholder/fake fiber for code testing
+[], #1_1
+[], #1_2
+[], #1_3
+[], #1_4
+[-3000], #1_5, have data for this one
+[-1750], #2_1, have data for this one
+[], #2_2
+[], #2_3
+[], #2_4
+[], #2_5
+[], #2_6
+[], #3_1
+[], #3_2
+[], #3_3
+[], #3_4
+[], #3_5, have data for this one
+[], #3_6
+[], #4_1
+[], #4_2
+[], #4_3
+[], #4_4
+[], #4_5  
+[], #4_6
+[], #5_1
+[], #5_2
+[], #5_3
+[], #5_4
+[], #5_5
+[], #5_6
+[], #6_1
+[], #6_2
+[], #6_3
+[], #6_4
+[], #6_5 
+[] #6_6, have data for this one
 ]
 
 #arrow positions
 arrow_positions = [
-[], #placeholder/fake fiber for code testing
+[0,0,0], #placeholder/fake fiber for code testing
 [1005, 0, 571.5], #1_1
+[1005, 0, 342.9], #1_2
 [1005, 0, 114.3], #1_3
+[1005, 0, -114.3], #1_4
 [1005, 0, -342.9], #1_5, have data for this one
-[502.0, 870.4, 571.5], #2_1
+[1005, 0, -571.5], #1_6
+[502.0, 870.4, 571.5], #2_1,have data for this one
+[502.0, 870.4, 342.9], #2_2
 [502.0, 870.4, 114.3], #2_3
+[502.0, 870.4, -114.3], #2_4
 [502.0, 870.4, -342.9], #2_5
+[502.0, 870.4, -571.5], #2_6
 [-502.5, 870.4, 571.5], #3_1
+[-502.0, 870.4, 342.9], #3_2
 [-502.5, 870.4, 114.3], #3_3
+[-502.5, 870.4, -114.3], #3_4
 [-502.5, 870.4, -342.9], #3_5, have data for this one
+[-502.5, 870.4, -571.5], #3_6
 [-1005, 0, 571.5], #4_1
+[-1005, 0, 342.9], #4_2
 [-1005, 0, 114.3], #4_3
+[-1005, 0, -114.3], #4_4
 [-1005, 0, -342.9], #4_5  
+[-1005, 0, -571.5], #4_6
 [-502.5, -870.4, 571.5], #5_1
+[-502.5, -870.4, 342.9], #5_2
 [-502.5, -870.4, 114.3], #5_3
+[-502.5, -870.4, -114.3], #5_4
 [-502.5, -870.4, -342.9], #5_5
+[-502.5, -870.4, -571.5], #5_6
 [502.5, -870.4, 571.5], #6_1
+[502.5, -870.4, 342.9], #6_2
 [502.5, -870.4, 114.3], #6_3
-[502.5, -870.4, -342.9] #6_5. have data for this one? labelled as 6_6. needs to be checked
+[502.5, -870.4, -114.3], #6_4
+[502.5, -870.4, -342.9], #6_5 
+[502.5, -870.4, -571.5] #6_6, have data for this one
 ]
 
 #arrow directions
-[], #placeholder/fake fiber for code testing
+arrow_directions = [
+[0,1,0], #placeholder/fake fiber for code testing
+[0,1,0], #1_1
+[0,1,0], #1_2
+[0,1,0], #1_3
+[0,1,0], #1_4
+[0, 1, 0], #1_5, have data for this one
+[0, 1, 0], #2_1, have data for this one
+[0,1,0], #2_2
+[0,1,0], #2_3
+[0,1,0], #2_4
+[0,1,0], #2_5
+[0,1,0], #2_6
+[0,1,0], #3_1
+[0,1,0], #3_2
+[0,1,0], #3_3
+[0,1,0], #3_4
+[0,1,0], #3_5, have data for this one
+[0,1,0], #3_6
+[0,1,0], #4_1
+[0,1,0], #4_2
+[0,1,0], #4_3
+[0,1,0], #4_4
+[0,1,0], #4_5  
+[0,1,0], #4_6
+[0,1,0], #5_1
+[0,1,0], #5_2
+[0,1,0], #5_3
+[0,1,0], #5_4
+[0,1,0], #5_5
+[0,1,0], #5_6
+[0,1,0], #6_1
+[0,1,0], #6_2
+[0,1,0], #6_3
+[0,1,0], #6_4
+[0,1,0], #6_5 
+[0,1,0] #6_6, have data for this one
+]
+
+#arrow angles
+arrow_angles = [
+[0,0,0], #placeholder/fake fiber for code testing
 [], #1_1
+[], #1_2
 [], #1_3
-[], #1_5, have data for this one
-[0, 1, 0], #2_1
+[], #1_4
+[0, -89.7, 0], #1_5, have data for this one
+[38, 0, 0], #2_1, have data for this one
+[], #2_2
 [], #2_3
+[], #2_4
 [], #2_5
+[], #2_6
 [], #3_1
+[], #3_2
 [], #3_3
-[], #3_5, have data for this one
+[], #3_4
+[49.8, 90.3, 0], #3_5, have data for this one
+[], #3_6
 [], #4_1
+[], #4_2
 [], #4_3
+[], #4_4
 [], #4_5  
+[], #4_6
 [], #5_1
+[], #5_2
 [], #5_3
+[], #5_4
 [], #5_5
+[], #5_6
 [], #6_1
+[], #6_2
 [], #6_3
-[] #have data for this one? labelled as 6_6. needs to be checked
+[], #6_4
+[], #6_5 
+[-44.4, -44.8, 0] #6_6, have data for this one
 ]
