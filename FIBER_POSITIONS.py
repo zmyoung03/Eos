@@ -69,6 +69,16 @@ open_angle = [
 38, 38, 120, 120, 38, 38 #column 6
 ]
 
+#fiber modes: 0 = single mode, 1 = multi mode
+fiber_modes = [
+1, 1, 1, 1, 0, 0, #column 1
+1, 1, 1, 1, 0, 0, #column 2
+1, 1, 1, 1, 0, 0, #column 3
+1, 1, 1, 1, 0, 0, #column 4
+1, 1, 1, 1, 0, 0, #column 5
+1, 1, 1, 1, 0, 0 #column 6
+]
+
 #cone positions
 cone_positions = [
 [0,0,0], #placeholder/fake fiber for code testing
