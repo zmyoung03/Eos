@@ -243,7 +243,6 @@ cone_length = [
 #arrow positions
 arrow_positions = [
 [0,0,0], #placeholder/fake fiber for code testing
-FIBER_POSITIONS = {
 [-1005.0, 0.0, 571.5], #1_1
 [-1005.0, 0.0, 342.9], #1_2
 [-1005.0, 0.0, -342.9], #1_3
@@ -279,8 +278,9 @@ FIBER_POSITIONS = {
 [-502.0, -870.4, -342.9], #6_3
 [-502.0, -870.4, -571.5], #6_4
 [-502.0, -870.4, 114.3], #6_5
-[-502.0, -870.4, -114.3], #6_6
-}
+[-502.0, -870.4, -114.3] #6_6
+]
+
 #arrow directions
 arrow_directions = [
 [0,1,0], #placeholder/fake fiber for code testing
