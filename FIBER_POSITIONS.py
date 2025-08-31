@@ -79,7 +79,7 @@ fiber_modes = [
 1, 1, 1, 1, 0, 0 #column 6
 ]
 
-#cone positions
+#cone positions -- outdated, need to be redone
 cone_positions = [
 [0,0,0], #placeholder/fake fiber for code testing
 [], #1_1
@@ -160,7 +160,7 @@ cone_directions = [
 [0,0,1] #6_6, have data for this one
 ]
 
-#cone angles
+#cone angles -- outdated, need to be redone
 cone_angles = [
 [0,0,0], #placeholder/fake fiber for code testing
 [], #1_1
@@ -328,8 +328,8 @@ arrow_angles = [
 [], #1_2
 [], #1_3
 [], #1_4
-[0, -89.7, 0], #1_5, have data for this one
-[38, 0, 0], #2_1, have data for this one
+[19.5, -90, -15], #1_5, have data for this one
+[38.3, 44.69, 0], #2_1, have data for this one
 [], #2_2
 [], #2_3
 [], #2_4
@@ -339,7 +339,7 @@ arrow_angles = [
 [], #3_2
 [], #3_3
 [], #3_4
-[49.8, 90.3, 0], #3_5, have data for this one
+[49.9, 90.5, .5], #3_5, have data for this one
 [], #3_6
 [], #4_1
 [], #4_2
@@ -358,5 +358,5 @@ arrow_angles = [
 [], #6_3
 [], #6_4
 [], #6_5 
-[-44.4, -44.8, 0] #6_6, have data for this one
+[-44.4, -44.8, -15] #6_6, have data for this one
 ]
